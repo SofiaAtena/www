@@ -38,16 +38,17 @@
             border-radius: 5px;
             cursor: pointer;
             outline: none;
+            position: relative;
         }
 
         .no {
             background-color: #ff4c4c;
             color: #fff;
-            transition: opacity 0.5s, transform 0.5s;
+            transition: transform 0.5s ease-in-out, opacity 0.5s;
         }
 
         .no:hover {
-            opacity: 0;
+            opacity: 0.5;
         }
 
         .yes {
@@ -170,12 +171,7 @@
                         break;
                 }
 
-                noBtn.style.opacity = '0';
-                setTimeout(() => {
-                    noBtn.style.left = `${newX}px`;
-                    noBtn.style.top = `${newY}px`;
-                    noBtn.style.opacity = '1';
-                }, 500);
+                noBtn.style.transform = `translate(${newX - noBtn.offsetLeft}px, ${newY - noBtn.offsetTop}px)`;
             });
 
             yesBtn.addEventListener('click', function() {
