@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quer Namorar Comigo?</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            text-align: center;
+        }
+
+        .container {
+            position: relative;
+        }
+
+        .question {
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+            animation: bounceIn 2s ease-out;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .no {
+            background-color: #ff4c4c;
+            color: #fff;
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .no:hover {
+            opacity: 0;
+        }
+
+        .yes {
+            background-color: #4caf50;
+            color: #fff;
+        }
+
+        .yes:hover {
+            background-color: #45a049;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            background-color: #fff;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .heart {
+            font-size: 4em;
+            color: #ff4c4c;
+            animation: heartBeat 1s infinite;
+        }
+
+        @keyframes bounceIn {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes heartBeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="question">QUER NAMORAR COMIGO?</h1>
+        <div class="buttons">
+            <button id="yesBtn" class="btn yes">SIM</button>
+            <button id="noBtn" class="btn no">NÃO</button>
+        </div>
+    </div>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>TE AMO!</h2>
+            <div class="heart">&#10084;&#65039;</div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const noBtn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
+            const modal = document.getElementById('modal');
+            const closeModal = document.querySelector('.close');
+
+            noBtn.addEventListener('mouseover', function() {
+                const directions = ['up', 'down', 'left', 'right'];
+                const direction = directions[Math.floor(Math.random() * directions.length)];
+                let newX = noBtn.offsetLeft;
+                let newY = noBtn.offsetTop;
+
+                switch (direction) {
+                    case 'up':
+                        newY = Math.max(0, noBtn.offsetTop - noBtn.offsetHeight);
+                        break;
+                    case 'down':
+                        newY = Math.min(window.innerHeight - noBtn.offsetHeight, noBtn.offsetTop + noBtn.offsetHeight);
+                        break;
+                    case 'left':
+                        newX = Math.max(0, noBtn.offsetLeft - noBtn.offsetWidth);
+                        break;
+                    case 'right':
+                        newX = Math.min(window.innerWidth - noBtn.offsetWidth, noBtn.offsetLeft + noBtn.offsetWidth);
+                        break;
+                }
+
+                noBtn.style.opacity = '0';
+                setTimeout(() => {
+                    noBtn.style.left = `${newX}px`;
+                    noBtn.style.top = `${newY}px`;
+                    noBtn.style.opacity = '1';
+                }, 500);
+            });
+
+            yesBtn.addEventListener('click', function() {
+                modal.style.display = 'block';
+            });
+
+            closeModal.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
